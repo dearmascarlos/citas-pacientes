@@ -1,15 +1,39 @@
 import React from 'react'
+import Error from './Error'
 
-function Formulario() {
+function Formulario( { setPacientes, pacientes } ) {
 
   const [nombre, setNombre] = React.useState('')
   const [propietario, setPropietario] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [fecha, setFecha] = React.useState('')
   const [sintomas, setSintomas] = React.useState('')
+  const [error, setError] = React.useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
+      // Crear validaciones del formulario
+    if ([ nombre, propietario, email, fecha, sintomas].includes('')) {
+      setError(true)
+    } else {
+      setError(false)
+    }
+
+    const datosPaciente = {
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas
+    }
+
+    setPacientes([...pacientes, datosPaciente])
+
+    setNombre('')
+    setEmail('')
+    setFecha('')
+    setSintomas('')
+    setPropietario('')
   }
   
   return (
@@ -25,13 +49,14 @@ function Formulario() {
       <form 
         className='bg-white shadow-md rounded-lg py-10 px-5'
         onSubmit={handleSubmit}
-      >
         
+        >
+          
         <div className='mb-5'>
           <label 
             className='block text-gray-700 uppercase font-bold'
             htmlFor='mascota'
-          > 
+            > 
           Nombre Mascota
           </label>
           <input
@@ -41,13 +66,13 @@ function Formulario() {
             className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-          />
+            />
         </div>
         <div className='mb-5'>
           <label 
             className='block text-gray-700 uppercase font-bold'
             htmlFor='propiertario'
-          > 
+            > 
           Nombre propiertario
           </label>
           <input
@@ -57,13 +82,13 @@ function Formulario() {
             className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
             value={propietario}
             onChange={(e) => setPropietario(e.target.value)}
-          />
+            />
         </div>
         <div className='mb-5'>
           <label 
             className='block text-gray-700 uppercase font-bold'
             htmlFor='Email'
-          > 
+            > 
           Email
           </label>
           <input
@@ -73,13 +98,13 @@ function Formulario() {
             className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-        />
+            />
         </div>
         <div className='mb-5'>
           <label 
             className='block text-gray-700 uppercase font-bold'
             htmlFor='Alta'
-          > 
+            > 
           Cita
           </label>
           <input
@@ -88,13 +113,13 @@ function Formulario() {
             className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md placeholder-gray-400'
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
-          />
+            />
         </div>
         <div className='mb-5'>
           <label 
             className='block text-gray-700 uppercase font-bold'
             htmlFor='Alta'
-          > 
+            > 
           Motivo
           </label>
           <textarea 
@@ -103,16 +128,16 @@ function Formulario() {
             placeholder='Describe los sintomas'
             value={sintomas}
             onChange={(e) => setSintomas(e.target.value)}
-          />
+            />
           
-        </div> 
-
+        </div>
+        { error && <Error/> }
         <input 
           type="submit" 
           className='bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md 
           hover:bg-indigo-800 cursor-pointer transition-all' 
           value="Agregar Paciente"
-        />
+          />
 
       </form>
       </div>

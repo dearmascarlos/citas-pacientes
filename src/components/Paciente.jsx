@@ -1,28 +1,30 @@
 import React from 'react'
 
-function Paciente() {
+function Paciente({paciente}) {
+
+  const {nombre, propietario, email, fecha, sintomas} = paciente
+
   return (
     <div className='bg-white m-3 shadow-md px-5 py-10 rounded-md '>
           <p className='font-bold mb-3 text-gray-700 uppercase'>
             Nombre: {" "}
-            <span className='font-normal normal-case'>Lupe</span>  
+            <span className='font-normal normal-case'>{nombre}</span>  
           </p>
           <p className='font-bold mb-3 text-gray-700 uppercase'>
             Propietario: {" "} 
-            <span className='font-normal normal-case'>Carlos</span>  
+            <span className='font-normal normal-case'>{propietario}</span>  
           </p>
           <p className='font-bold mb-3 text-gray-700 uppercase'>
             Email: {" "}
-            <span className='font-normal normal-case'>correo.carlosdearmas@gamil.com</span>  
+            <span className='font-normal normal-case'>{email}</span>  
           </p>
           <p className='font-bold mb-3 text-gray-700 uppercase'>
             Fecha de alta: {" "}
-            <span className='font-normal normal-case'>06 Julio de 2022</span>  
+            <span className='font-normal normal-case'>{fecha}</span>  
           </p>
           <p className='font-bold mb-3 text-gray-700 uppercase'>
             Sintomas: {" "}
-            <span className='font-normal normal-case'>Esta como una rosa
-            preciosa. Mejor que yo y que tu.</span>  
+            <span className='font-normal normal-case'>{sintomas}</span>  
           </p>
         </div>
   )
