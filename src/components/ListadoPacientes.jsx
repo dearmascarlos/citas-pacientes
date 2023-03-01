@@ -1,7 +1,11 @@
 import React from 'react'
 import Paciente from './Paciente'
 
-function ListadoPacientes({pacientes}) {
+function ListadoPacientes({pacientes, setPaciente}) {
+
+  React.useEffect(() => {
+    console.log('nuevo paciente')
+  }, [pacientes])
 
   return (
     <div className='md:w-1/2 lg:w-3/5'>
@@ -25,6 +29,7 @@ function ListadoPacientes({pacientes}) {
                     pero si es del lado del cliente es mejor practica generar un
                     id unico y que no se base en el indice de map)*/
                     paciente={paciente}
+                    setPaciente={setPaciente}
                   />
                 )
             })}

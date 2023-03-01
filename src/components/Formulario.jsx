@@ -1,7 +1,7 @@
 import React from 'react'
 import Error from './Error'
 
-function Formulario( { setPacientes, pacientes } ) {
+function Formulario( { setPacientes, pacientes, paciente } ) {
 
   const [nombre, setNombre] = React.useState('')
   const [propietario, setPropietario] = React.useState('')
@@ -10,32 +10,50 @@ function Formulario( { setPacientes, pacientes } ) {
   const [sintomas, setSintomas] = React.useState('')
   const [error, setError] = React.useState(false)
 
-  const handleSubmit = (e) => {
+  const genId = () => {
+    const random = Math.random().toString(36).substring(2)
+    const fecha = Date.now().toString(36)
+    return random + fecha
+  }
+
+  const handleSubmit = (e) => {  
     e.preventDefault()
       // Crear validaciones del formulario
     if ([ nombre, propietario, email, fecha, sintomas].includes('')) {
       setError(true)
     } else {
       setError(false)
+
+      const datosPaciente = {
+        nombre,
+        propietario,
+        email,
+        fecha,
+        sintomas,
+        id: genId()
+      }
+      console.log(datosPaciente)
+  
+      setPacientes([...pacientes, datosPaciente])
+  
+      setNombre('')
+      setEmail('')
+      setFecha('')
+      setSintomas('')
+      setPropietario('')
     }
 
-    const datosPaciente = {
-      nombre,
-      propietario,
-      email,
-      fecha,
-      sintomas
-    }
-
-    setPacientes([...pacientes, datosPaciente])
-
-    setNombre('')
-    setEmail('')
-    setFecha('')
-    setSintomas('')
-    setPropietario('')
   }
   
+  React.useEffect(() => {
+    if( Object.keys(paciente).length > 0 ) {
+      setNombre(paciente.nombre)
+      setPropietario(paciente.propietario)
+      setEmail(paciente.email)
+      setFecha(paciente.fecha)
+      setSintomas(paciente.sintomas)
+    }
+  }, [paciente])
   return (
     <div className='md:w-1/2 lg:w-2/5 mx:5 my:10'>
       <h2 className='font-black text-3xl text-center'>
@@ -62,7 +80,7 @@ function Formulario( { setPacientes, pacientes } ) {
           <input
             id='mascota' 
             type="text"
-            placeholder='Nombre de la Email'
+            placeholder='Nombre de la Mascota'
             className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
@@ -136,7 +154,7 @@ function Formulario( { setPacientes, pacientes } ) {
           type="submit" 
           className='bg-indigo-600 w-full p-3 text-white uppercase font-bold rounded-md 
           hover:bg-indigo-800 cursor-pointer transition-all' 
-          value="Agregar Paciente"
+          value={paciente.id ? 'Editar Paciente' : 'Agregar Paciente'}
           />
 
       </form>

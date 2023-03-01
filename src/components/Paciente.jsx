@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Paciente({paciente}) {
+function Paciente({paciente, setPaciente}) {
 
   const {nombre, propietario, email, fecha, sintomas} = paciente
 
@@ -26,6 +26,23 @@ function Paciente({paciente}) {
             Sintomas: {" "}
             <span className='font-normal normal-case'>{sintomas}</span>  
           </p>
+          <div 
+            className='flex justify-between mt-8'
+          >
+            <button
+              className='py-2 px-8 bg-green-500 rounded-md text-white font-bold' 
+              type='button'
+              onClick={() => setPaciente(paciente)}
+            >Editar
+            </button>
+
+            <button
+              className='py-2 px-8 bg-red-500 rounded-md font-bold text-white'
+              type='button'
+            >Eliminar
+            </button>
+
+          </div>
         </div>
   )
 }
