@@ -1,7 +1,7 @@
 import React from 'react'
 import Error from './Error'
 
-function Formulario( { setPacientes, pacientes, paciente } ) {
+function Formulario( { setPacientes, pacientes, paciente, setPaciente} ) {
 
   const [nombre, setNombre] = React.useState('')
   const [propietario, setPropietario] = React.useState('')
@@ -29,12 +29,26 @@ function Formulario( { setPacientes, pacientes, paciente } ) {
         propietario,
         email,
         fecha,
-        sintomas,
-        id: genId()
+        sintomas
+       
       }
-      console.log(datosPaciente)
-  
-      setPacientes([...pacientes, datosPaciente])
+      
+      if( paciente.id ) {
+        
+        datosPaciente.id = paciente.id
+
+        const pacienteActualizado = pacientes.map(pacienteActual => {
+          return pacienteActual.id === paciente.id ? datosPaciente : pacienteActual
+        })
+
+        setPacientes(pacienteActualizado)
+        setPaciente({})
+
+      } else {
+        datosPaciente.id = genId()
+        setPacientes([...pacientes, datosPaciente])
+      }
+
   
       setNombre('')
       setEmail('')

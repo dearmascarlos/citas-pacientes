@@ -1,11 +1,7 @@
 import React from 'react'
 import Paciente from './Paciente'
 
-function ListadoPacientes({pacientes, setPaciente}) {
-
-  React.useEffect(() => {
-    console.log('nuevo paciente')
-  }, [pacientes])
+function ListadoPacientes({pacientes, setPaciente, eliminarPaciente }) {
 
   return (
     <div className='md:w-1/2 lg:w-3/5'>
@@ -30,6 +26,7 @@ function ListadoPacientes({pacientes, setPaciente}) {
                     id unico y que no se base en el indice de map)*/
                     paciente={paciente}
                     setPaciente={setPaciente}
+                    eliminarPaciente={eliminarPaciente}
                   />
                 )
             })}
@@ -38,7 +35,7 @@ function ListadoPacientes({pacientes, setPaciente}) {
         </>
       ) : (
           <>
-            <h2 className='font-black text-3xl text-center mt-8'>
+            <h2 className='font-black text-3xl text-center'>
               No hay pacientes
             </h2>
             <p className='font-bold text-center mt-5 mb-5'>

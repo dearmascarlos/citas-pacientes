@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Paciente({paciente, setPaciente}) {
+function Paciente({paciente, setPaciente, eliminarPaciente}) {
 
-  const {nombre, propietario, email, fecha, sintomas} = paciente
+  const {nombre, propietario, email, fecha, sintomas, id} = paciente
 
   return (
     <div className='bg-white m-3 shadow-md px-5 py-10 rounded-md '>
@@ -39,6 +39,7 @@ function Paciente({paciente, setPaciente}) {
             <button
               className='py-2 px-8 bg-red-500 rounded-md font-bold text-white'
               type='button'
+              onClick={ () => eliminarPaciente(id)}
             >Eliminar
             </button>
 
